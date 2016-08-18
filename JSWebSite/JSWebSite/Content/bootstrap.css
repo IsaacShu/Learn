@@ -4568,6 +4568,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: #080808;
 }
 
+.alltop {
+    margin: 0;
+    background: #22242a;
+    color: white;
+    padding: 0 20px;
+    line-height: 80px;
+    height: 80px;
+}
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;

@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="leavesystemModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="employeeinfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoginPassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Sex" Type="bool" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="HireDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="leaverecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ReasonForLeave" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="ReasonForReject" Type="varchar" MaxLength="100" />
+          <Property Name="LeaderId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="leavestatistics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="CauseLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="AnnualLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="SickLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="MaternityLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="MaritalLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="FuneralLeaveCount" Type="uint" Nullable="false" />
+          <Property Name="AnnualLeaveInAll" Type="int" Nullable="false" />
+          <Property Name="AvailableAnnualLeave" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="leavetype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="Fk_LeaderId">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leaverecord" Type="Self.leaverecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leaverecord">
+              <PropertyRef Name="LeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserId">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leaverecord" Type="Self.leaverecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leaverecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserId_">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leavestatistics" Type="Self.leavestatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leavestatistics">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="leavesystemModelStoreContainer">
+          <EntitySet Name="employeeinfo" EntityType="Self.employeeinfo" Schema="leavesystem" store:Type="Tables" />
+          <EntitySet Name="leaverecord" EntityType="Self.leaverecord" Schema="leavesystem" store:Type="Tables" />
+          <EntitySet Name="leavestatistics" EntityType="Self.leavestatistics" Schema="leavesystem" store:Type="Tables" />
+          <EntitySet Name="leavetype" EntityType="Self.leavetype" Schema="leavesystem" store:Type="Tables" />
+          <AssociationSet Name="Fk_LeaderId" Association="Self.Fk_LeaderId">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leaverecord" EntitySet="leaverecord" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserId" Association="Self.Fk_UserId">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leaverecord" EntitySet="leaverecord" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserId_" Association="Self.Fk_UserId_">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leavestatistics" EntitySet="leavestatistics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="leavesystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="employeeinfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sex" Type="Boolean" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="leaverecord" Relationship="Self.Fk_LeaderId" FromRole="employeeinfo" ToRole="leaverecord" />
+          <NavigationProperty Name="leaverecord1" Relationship="Self.Fk_UserId" FromRole="employeeinfo" ToRole="leaverecord" />
+          <NavigationProperty Name="leavestatistics" Relationship="Self.Fk_UserId_" FromRole="employeeinfo" ToRole="leavestatistics" />
+        </EntityType>
+        <EntityType Name="leaverecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" />
+          <Property Name="ReasonForLeave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="ReasonForReject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LeaderId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="employeeinfo" Relationship="Self.Fk_LeaderId" FromRole="leaverecord" ToRole="employeeinfo" />
+          <NavigationProperty Name="employeeinfo1" Relationship="Self.Fk_UserId" FromRole="leaverecord" ToRole="employeeinfo" />
+        </EntityType>
+        <EntityType Name="leavestatistics">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="CauseLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="AnnualLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="SickLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="MaternityLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="MaritalLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="FuneralLeaveCount" Type="Int64" Nullable="false" />
+          <Property Name="AnnualLeaveInAll" Type="Int32" Nullable="false" />
+          <Property Name="AvailableAnnualLeave" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employeeinfo" Relationship="Self.Fk_UserId_" FromRole="leavestatistics" ToRole="employeeinfo" />
+        </EntityType>
+        <EntityType Name="leavetype">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="Fk_LeaderId">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leaverecord" Type="Self.leaverecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leaverecord">
+              <PropertyRef Name="LeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserId">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leaverecord" Type="Self.leaverecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leaverecord">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_UserId_">
+          <End Role="employeeinfo" Type="Self.employeeinfo" Multiplicity="1" />
+          <End Role="leavestatistics" Type="Self.leavestatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employeeinfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="leavestatistics">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="leavesystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employeeinfo" EntityType="Self.employeeinfo" />
+          <EntitySet Name="leaverecord" EntityType="Self.leaverecord" />
+          <EntitySet Name="leavestatistics" EntityType="Self.leavestatistics" />
+          <EntitySet Name="leavetype" EntityType="Self.leavetype" />
+          <AssociationSet Name="Fk_LeaderId" Association="Self.Fk_LeaderId">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leaverecord" EntitySet="leaverecord" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserId" Association="Self.Fk_UserId">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leaverecord" EntitySet="leaverecord" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_UserId_" Association="Self.Fk_UserId_">
+            <End Role="employeeinfo" EntitySet="employeeinfo" />
+            <End Role="leavestatistics" EntitySet="leavestatistics" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="leavesystemModelStoreContainer" CdmEntityContainer="leavesystemEntities">
+          <EntitySetMapping Name="employeeinfo">
+            <EntityTypeMapping TypeName="leavesystemModel.employeeinfo">
+              <MappingFragment StoreEntitySet="employeeinfo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="LoginPassword" ColumnName="LoginPassword" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leaverecord">
+            <EntityTypeMapping TypeName="leavesystemModel.leaverecord">
+              <MappingFragment StoreEntitySet="leaverecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ReasonForLeave" ColumnName="ReasonForLeave" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ReasonForReject" ColumnName="ReasonForReject" />
+                <ScalarProperty Name="LeaderId" ColumnName="LeaderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leavestatistics">
+            <EntityTypeMapping TypeName="leavesystemModel.leavestatistics">
+              <MappingFragment StoreEntitySet="leavestatistics">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CauseLeaveCount" ColumnName="CauseLeaveCount" />
+                <ScalarProperty Name="AnnualLeaveCount" ColumnName="AnnualLeaveCount" />
+                <ScalarProperty Name="SickLeaveCount" ColumnName="SickLeaveCount" />
+                <ScalarProperty Name="MaternityLeaveCount" ColumnName="MaternityLeaveCount" />
+                <ScalarProperty Name="MaritalLeaveCount" ColumnName="MaritalLeaveCount" />
+                <ScalarProperty Name="FuneralLeaveCount" ColumnName="FuneralLeaveCount" />
+                <ScalarProperty Name="AnnualLeaveInAll" ColumnName="AnnualLeaveInAll" />
+                <ScalarProperty Name="AvailableAnnualLeave" ColumnName="AvailableAnnualLeave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leavetype">
+            <EntityTypeMapping TypeName="leavesystemModel.leavetype">
+              <MappingFragment StoreEntitySet="leavetype">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
