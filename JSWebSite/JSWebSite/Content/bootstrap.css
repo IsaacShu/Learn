@@ -4576,6 +4576,15 @@ textarea.input-group-sm > .input-group-btn > .btn {
     line-height: 80px;
     height: 80px;
 }
+
+#account-login-content-left-logo {
+    width: 330px;
+    height: 330px;
+    margin-left: 100px;
+    margin-right: 110px;
+    background-image: url("/top/Content/Images/image_330x330.png");
+}
+
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
