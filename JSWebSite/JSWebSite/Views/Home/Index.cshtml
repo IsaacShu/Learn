@@ -1,4 +1,58 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script type="text/javascript">
+    function Idfocus(inputObj) {
+        if (inputObj.value == "someone@domain.com") {
+            inputObj.value = "";
+            inputObj.style.color = 'black';
+        }
+    }
+    function IdLeave(inputObj) {
+        if (inputObj.value == '') {
+            inputObj.style.color = '#787878';
+            inputObj.value = "someone@domain.com";
+        }
+    }
+    function Pdfocus(inputObj) {
+        if (inputObj.placeholder == 'password') {
+            inputObj.style.color = 'black';
+            inputObj.placeholder = '';
+        }
+    }
+    function PdLeave(inputObj) {
+        if (inputObj.value == '') {
+            inputObj.style.color = '#787878';
+            inputObj.placeholder = 'password';
+        }
+    }
+
+</script>
+<div style="width:100%;height:500px;background: #E9E9E9;position: relative;">
+    <div id="account-login-content-left-logo"></div>
+    <div id="account-login-content-rgiht">
+        <div id="account-login-content-rigth-title">
+            <span style="color:#555555;margin-left:40px;">Sign in</span>
+            <div id="account-login-content-rigth-box">
+                <ul id="account-login-content-rigth-box-input">
+                    <li> <span>Login Id:</span></li>
+                    <li><input type="text" style="width: 250px; line-height: 28px; height: 28px; padding-left: 8px;color:#787878" id="uid" value="someone@domain.com" onfocus="Idfocus(this)" onblur="IdLeave(this)"></li>
+                    <li> <span>Password:</span></li>
+                    <li><input type="password" style="width: 250px; line-height: 28px; height: 28px; padding-left: 8px;color:#787878" id="upd" placeholder="password" onfocus="Pdfocus(this)" onblur="PdLeave(this)"></li>
+                </ul>
+                <div id="account-login-content-right-checkbox">
+                    <span>
+                        <input id="remember" type="checkbox" style="margin-left: 0px;">
+                    </span>
+                    <span>Remember my Login ID</span>
+                </div>
+                <div id="account-login-content-rigth-box-button">
+                    <input id="login" type="button" class="login-button" value="Login" role="button" tabindex="0">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 

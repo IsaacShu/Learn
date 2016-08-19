@@ -19,19 +19,19 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Leave System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div id="dmjt"></div>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
-                @Html.Partial("_LoginPartial")
+              
             </div>
         </div>
-        <div style="opacity: 0.5; z-index: 998; height: 955px; width: 100%; background: gray;">
-
+        <div style="opacity: 1.0; z-index: 998; height: 955px; width: 100%; background: #E9E9E9;">
+            @RenderBody()
         </div>
        
     </div>
     <div class="container body-content">
-        @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - From JShu</p>
